@@ -7,7 +7,7 @@ const Support = () => {
 
   const handleSubmit = () => {
     if (!form.name || !form.email || !form.message) return;
-    // mailto: se directly email client khulega
+    
     const mailto = `mailto:support@shophub.com?subject=${encodeURIComponent(form.subject || "Support Request")}&body=${encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`)}`;
     window.location.href = mailto;
     setSubmitted(true);

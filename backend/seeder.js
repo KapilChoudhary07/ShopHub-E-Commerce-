@@ -7,7 +7,7 @@ mongoose.connect(process.env.MONGO_URI)
   .catch(err => console.log(err));
 
 const products = [
-  // ── MEN ──────────────────────────────────────────
+
   {
     name: "Nike Air Max Shoes",
     price: 3499,

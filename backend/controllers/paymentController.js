@@ -11,8 +11,6 @@ exports.createPayment = async (req, res) => {
   try {
     const { amount } = req.body;
 
-    // console.log("AMOUNT:", amount);
-    // console.log("KEY:", process.env.RAZORPAY_KEY_ID);
 
     const order = await razorpay.orders.create({
       amount: amount * 100,

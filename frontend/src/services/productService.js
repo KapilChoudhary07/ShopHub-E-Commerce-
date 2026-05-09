@@ -1,20 +1,3 @@
-// import api from "./api";
-
-// // 🔥 GET all products (search + filter)
-// export const getProducts = (keyword = "", category = "") => {
-//   let url = "/products?";
-
-//   if (keyword) url += `keyword=${keyword}&`;
-//   if (category) url += `category=${category}`;
-
-//   return api.get(url);
-// };
-
-// // 🔥 GET single product
-// export const getProductById = (id) => {
-//   return api.get(`/products/${id}`);
-// };
-
 
 import api from "./api";
 
