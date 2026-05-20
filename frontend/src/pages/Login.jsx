@@ -187,7 +187,7 @@ const Login = () => {
 
           {/* Google Button */}
           <a
-            href="http://localhost:5000/api/auth/google"
+            href="https://shophub-e-commerce-owuz.onrender.com/api/auth/google"
             className="w-full flex items-center justify-center gap-3 border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-semibold text-sm py-3 rounded-xl transition-all duration-150 active:scale-95"
           >
             <GoogleIcon />
