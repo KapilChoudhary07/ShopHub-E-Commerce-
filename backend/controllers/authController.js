@@ -49,7 +49,6 @@ exports.login = async (req, res) => {
     }
   });
 };
-
 exports.googleSuccess = (req, res) => {
   const token = generateToken(req.user);
   const user = {
@@ -59,6 +58,6 @@ exports.googleSuccess = (req, res) => {
     isAdmin: req.user.isAdmin
   };
   res.redirect(
-    `http://localhost:5173/google-success?token=${token}&user=${encodeURIComponent(JSON.stringify(user))}`
+    `https://shophub-ecommerce-puce.vercel.app/google-success?token=${token}&user=${encodeURIComponent(JSON.stringify(user))}`
   );
 };
