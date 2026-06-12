@@ -57,10 +57,7 @@ exports.getMyOrders = async (req, res) => {
 
 
 //  ADMIN
-exports.getAllOrders = async (req, res) => {
-  const orders = await Order.find().populate("user");
-  res.json(orders);
-};
+// updateOrderStatus is the remaining admin route controller function
 
 
 exports.updateOrderStatus = async (req, res) => {

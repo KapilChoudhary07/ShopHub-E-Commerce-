@@ -157,7 +157,7 @@ const AdminOrders = () => {
                         {/* Info */}
                         <div className="flex-1 min-w-0">
                           <p className="font-bold text-gray-900 text-xs sm:text-sm line-clamp-1">
-                            {product.name || "Product"}
+                            {product.name || "Product Name"}
                           </p>
                           <div className="flex flex-wrap items-center gap-2 mt-0.5">
                             <span className="text-xs text-gray-400 font-medium">

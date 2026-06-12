@@ -7,7 +7,7 @@ import Loader from "../components/Loader";
 const CATEGORIES = ["Men", "Women", "Electronics", "Kids", "Beauty"];
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(null);
   const [keyword, setKeyword] = useState("");
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(true);
@@ -149,7 +149,7 @@ const Home = () => {
         <div>
           {hasFilters ? (
             <p className="text-sm font-semibold text-gray-700">
-              {products.length} result{products.length !== 1 ? "s" : ""}
+              {products?.length || 0} result{(products?.length || 0) !== 1 ? "s" : ""}
               {keyword && (
                 <span>
                   {" "}
@@ -167,16 +167,15 @@ const Home = () => {
             <p className="text-sm font-semibold text-gray-700">
               All Products
               <span className="text-gray-400 font-normal ml-1.5">
-                ({products.length})
+                ({products?.length || 0})
               </span>
             </p>
           )}
         </div>
       </div>
 
-      {/* ─── PRODUCTS ─── */}
       <div className="max-w-6xl mx-auto px-3 sm:px-6 pb-6 sm:pb-8">
-        {loading ? (
+        {loading || !products ? (
           <Loader message="Fetching products..." />
         ) : (
           <ProductGrid products={products} />
