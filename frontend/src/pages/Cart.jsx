@@ -3,9 +3,10 @@ import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Loader from "../components/Loader";
 
 const Cart = () => {
-  const { cart, updateItem, removeItem } = useContext(CartContext);
+  const { cart, updateItem, removeItem, loading } = useContext(CartContext);
   const navigate = useNavigate();
 
   const total = cart.reduce((acc, item) => {
@@ -33,7 +34,9 @@ const Cart = () => {
           </div>
 
           {/* Empty Cart */}
-          {cart.length === 0 ? (
+          {loading ? (
+            <Loader message="Loading your cart..." />
+          ) : cart.length === 0 ? (
             <div className="flex flex-col items-center justify-center bg-white border border-gray-100 rounded-2xl py-16 sm:py-20 text-center shadow-sm">
               <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-5">
                 <span className="text-3xl">🛒</span>

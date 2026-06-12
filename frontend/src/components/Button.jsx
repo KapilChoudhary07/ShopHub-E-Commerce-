@@ -1,6 +1,4 @@
 
-
-
 const Button = ({ children, onClick, type = "primary", loading = false }) => {
   const base = [
     "relative overflow-hidden",

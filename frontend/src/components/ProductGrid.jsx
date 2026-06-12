@@ -7,7 +7,7 @@ const ProductGrid = ({ products }) => {
         <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mb-4">
           <span className="text-2xl">🛍️</span>
         </div>
-        <h3 className="text-gray-800 font-bold text-lg mb-1">No products found</h3>
+        <h3 className="text-gray-800 font-bold text-lg mb-1">{products.length} products found</h3>
         <p className="text-gray-400 text-sm">Try adjusting your search or filter</p>
       </div>
     );

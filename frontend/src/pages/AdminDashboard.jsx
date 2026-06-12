@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import Navbar from "../components/Navbar"; // 🔥 apna path check kar lena
+import Navbar from "../components/Navbar"; 
 
 const AdminDashboard = () => {
   const { user } = useContext(AuthContext);

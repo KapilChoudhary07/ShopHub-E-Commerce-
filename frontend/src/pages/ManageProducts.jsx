@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getProducts, deleteProduct } from "../services/productService";
 import { useNavigate } from "react-router-dom";
 import MainLayout from "../layout/MainLayout"; // ✅ add
+import Loader from "../components/Loader";
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
@@ -66,10 +67,7 @@ const ManageProducts = () => {
 
         {/* Loading */}
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-32 gap-3">
-            <div className="w-10 h-10 border-4 border-gray-200 border-t-gray-900 rounded-full animate-spin" />
-            <p className="text-gray-400 text-sm font-medium">Loading products...</p>
-          </div>
+          <Loader message="Loading products..." />
 
         ) : products.length === 0 ? (
           <div className="flex flex-col items-center justify-center bg-white border border-gray-100 rounded-2xl py-24 text-center shadow-sm">

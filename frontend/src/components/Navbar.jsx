@@ -1,5 +1,4 @@
 
-
 import { Link, useNavigate } from "react-router-dom";
 import { FaShoppingCart, FaHeart, FaBoxOpen, FaBars, FaTimes } from "react-icons/fa";
 import { useContext, useState } from "react";

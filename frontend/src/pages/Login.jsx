@@ -4,6 +4,7 @@ import { loginUser } from "../services/authService";
 import { AuthContext } from "../context/AuthContext";
 import { successToast, errorToast } from "../utils/toast";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -13,6 +14,10 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+
+  if (loading) {
+    return <Loader message="Signing you in..." fullScreen={true} />;
+  }
 
   const submit = async () => {
     if (loading) return;

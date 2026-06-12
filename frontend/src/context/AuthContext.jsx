@@ -5,7 +5,7 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
-  // ✅ Fix — null/undefined safely handle karo
+ 
   const [user, setUser] = useState(() => {
     try {
       const stored = localStorage.getItem("user");

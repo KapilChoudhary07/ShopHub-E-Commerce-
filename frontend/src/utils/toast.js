@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 const baseConfig = {
   position: "top-right",
-  autoClose: 2500,
+  autoClose: 1000,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: true,
@@ -20,7 +20,7 @@ export const errorToast = (msg) =>
   toast.error(msg, {
     ...baseConfig,
     icon: "✕",
-    autoClose: 3500,
+    autoClose: 1000,
   });
 
 export const infoToast = (msg) =>
@@ -33,5 +33,5 @@ export const warningToast = (msg) =>
   toast.warning(msg, {
     ...baseConfig,
     icon: "!",
-    autoClose: 3000,
+    autoClose: 1000,
   });

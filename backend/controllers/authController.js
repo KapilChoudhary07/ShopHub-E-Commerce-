@@ -31,7 +31,7 @@ exports.login = async (req, res) => {
 
   if (!user) return res.status(400).json({ msg: "Invalid email" });
 
-  // ✅ Google se login kiya hua user check
+  
   if (!user.password) {
     return res.status(400).json({ msg: "Please login with Google" });
   }

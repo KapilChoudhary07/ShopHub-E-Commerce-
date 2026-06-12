@@ -1,9 +1,8 @@
 
-
-
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProductById, updateProduct } from "../services/productService";
+import Loader from "../components/Loader";
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -49,14 +48,9 @@ const EditProduct = () => {
     }
   };
 
-  if (fetching) return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <div className="flex flex-col items-center gap-3">
-        <div className="w-10 h-10 border-4 border-gray-200 border-t-gray-900 rounded-full animate-spin" />
-        <p className="text-gray-400 text-sm font-medium">Loading product...</p>
-      </div>
-    </div>
-  );
+  if (fetching) {
+    return <Loader message="Loading product..." fullScreen={true} />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-3 sm:px-4">

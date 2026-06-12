@@ -1,15 +1,16 @@
 
-
-
 import { FaHeart, FaStar, FaShoppingCart } from "react-icons/fa";
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { WishlistContext } from "../context/WishlistContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const ProductCard = ({ product }) => {
   const { addItem } = useContext(CartContext);
   const { wishlist, toggleItem } = useContext(WishlistContext);
+  const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const isWishlisted = wishlist.some((item) => item._id === product._id);
 
@@ -84,7 +85,13 @@ const ProductCard = ({ product }) => {
           </p>
 
           <button
-            onClick={() => addItem(product._id)}
+            onClick={() => {
+              if (!token) {
+                navigate("/login");
+              } else {
+                addItem(product._id);
+              }
+            }}
             className="flex items-center gap-1.5 bg-gray-950 text-white text-xs font-semibold px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl hover:bg-gray-700 active:scale-95 transition-all duration-150"
           >
             <FaShoppingCart className="text-xs" />

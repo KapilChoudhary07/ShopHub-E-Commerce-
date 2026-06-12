@@ -2,7 +2,7 @@
 
 const Order = require("../models/Order");
 
-// ✅ CREATE ORDER (PAYMENT)
+//  CREATE ORDER (PAYMENT)
 exports.createOrder = async (req, res) => {
   try {
     const { cart, totalPrice, shippingAddress } = req.body;
@@ -56,7 +56,7 @@ exports.getMyOrders = async (req, res) => {
 };
 
 
-// ✅ ADMIN
+//  ADMIN
 exports.getAllOrders = async (req, res) => {
   const orders = await Order.find().populate("user");
   res.json(orders);

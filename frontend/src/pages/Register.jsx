@@ -5,12 +5,17 @@ import { useState } from "react";
 import { registerUser } from "../services/authService";
 import { successToast, errorToast } from "../utils/toast";
 import { useNavigate, Link } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const Register = () => {
   const [form, setForm] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  if (loading) {
+    return <Loader message="Creating your account..." fullScreen={true} />;
+  }
 
   const submit = async () => {
     if (loading) return;

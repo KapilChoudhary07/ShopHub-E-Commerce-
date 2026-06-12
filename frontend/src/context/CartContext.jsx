@@ -11,19 +11,22 @@ export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // 🔥 Fetch cart
+  //  Fetch cart
   const fetchCart = async () => {
+    setLoading(true);
     try {
       const res = await getCart();
       setCart(res.data);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
-  // 🔥 Add item
+  //  Add item
  const addItem = async (productId) => {
   try {
     const exists = cart.find(
@@ -50,7 +53,7 @@ const CartProvider = ({ children }) => {
   }
 };
 
-  // 🔥 Update quantity
+  //  Update quantity
   const updateItem = async (id, qty) => {
   try {
     if (qty < 1) return;
@@ -63,7 +66,7 @@ const CartProvider = ({ children }) => {
     console.log(err);
   }
 };
-  // 🔥 Remove item
+  //  Remove item
  const removeItem = async (id) => {
   try {
     const res = await removeFromCart(id);

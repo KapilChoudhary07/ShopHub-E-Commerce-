@@ -1,7 +1,7 @@
 const User = require("../models/User");
 
 
-// ✅ GET cart
+//  GET cart
 exports.getCart = async (req, res) => {
   const user = await User.findById(req.user.id)
     .populate("cart.productId");
@@ -10,7 +10,7 @@ exports.getCart = async (req, res) => {
 };
 
 
-// ✅ ADD to cart
+//  ADD to cart
 exports.addToCart = async (req, res) => {
   const { productId, quantity } = req.body;
 
@@ -28,7 +28,7 @@ exports.addToCart = async (req, res) => {
 
   await user.save();
 
-  // 🔥 IMPORTANT: populate before sending
+  //  IMPORTANT: populate before sending
   const updatedUser = await User.findById(req.user.id)
     .populate("cart.productId");
 
@@ -36,7 +36,7 @@ exports.addToCart = async (req, res) => {
 };
 
 
-// ✅ REMOVE item
+//  REMOVE item
 exports.removeFromCart = async (req, res) => {
   const user = await User.findById(req.user.id);
 
@@ -53,7 +53,7 @@ exports.removeFromCart = async (req, res) => {
 };
 
 
-// ✅ UPDATE quantity
+//  UPDATE quantity
 exports.updateCart = async (req, res) => {
   const { quantity } = req.body;
 

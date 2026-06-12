@@ -1,9 +1,7 @@
-
-
-
 import { useEffect, useState } from "react";
 import { getAllOrders } from "../services/orderService";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -28,7 +26,6 @@ const AdminOrders = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-6 px-3 sm:px-4">
       <div className="max-w-5xl mx-auto">
-
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
           <div>
@@ -36,8 +33,18 @@ const AdminOrders = () => {
               onClick={() => navigate("/admin")}
               className="flex items-center gap-1.5 text-gray-400 hover:text-gray-700 text-sm font-medium transition-colors duration-150 mb-2"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
               Back
             </button>
@@ -54,23 +61,22 @@ const AdminOrders = () => {
 
         {/* Loading */}
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-20 gap-3">
-            <div className="w-10 h-10 border-4 border-gray-200 border-t-gray-900 rounded-full animate-spin" />
-            <p className="text-gray-400 text-sm font-medium">Loading orders...</p>
-          </div>
-
-        /* Empty */
-        ) : orders.length === 0 ? (
+          <Loader message="Loading orders..." />
+        ) : /* Empty */
+        orders.length === 0 ? (
           <div className="flex flex-col items-center justify-center bg-white border border-gray-100 rounded-2xl py-16 text-center shadow-sm px-4">
             <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center text-2xl mb-4">
               🧾
             </div>
-            <h2 className="text-gray-800 font-bold text-lg sm:text-xl mb-1">No orders yet</h2>
-            <p className="text-gray-400 text-xs sm:text-sm">Orders will appear here once customers checkout</p>
+            <h2 className="text-gray-800 font-bold text-lg sm:text-xl mb-1">
+              No orders yet
+            </h2>
+            <p className="text-gray-400 text-xs sm:text-sm">
+              Orders will appear here once customers checkout
+            </p>
           </div>
-
-        /* Orders list */
         ) : (
+          /* Orders list */
           <div className="space-y-4">
             {orders.map((order, index) => (
               <div
@@ -79,14 +85,15 @@ const AdminOrders = () => {
               >
                 {/* Order Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 sm:px-6 py-4 border-b border-gray-100 bg-gray-50/50">
-
                   {/* Order number */}
                   <div className="flex items-center gap-3">
                     <span className="w-7 h-7 sm:w-8 sm:h-8 bg-gray-950 text-white text-xs font-black rounded-lg flex items-center justify-center">
                       #{index + 1}
                     </span>
                     <div>
-                      <p className="text-xs text-gray-400 font-medium">Order ID</p>
+                      <p className="text-xs text-gray-400 font-medium">
+                        Order ID
+                      </p>
                       <p className="text-xs font-bold text-gray-600 font-mono break-all">
                         {order._id?.slice(-8).toUpperCase()}
                       </p>
@@ -95,11 +102,15 @@ const AdminOrders = () => {
 
                   {/* User */}
                   <div>
-                    <p className="text-xs text-gray-400 font-medium">Customer</p>
+                    <p className="text-xs text-gray-400 font-medium">
+                      Customer
+                    </p>
                     <p className="text-sm font-bold text-gray-900">
                       {order.user?.name || "Guest"}
                     </p>
-                    <p className="text-xs text-gray-400 break-all">{order.user?.email}</p>
+                    <p className="text-xs text-gray-400 break-all">
+                      {order.user?.email}
+                    </p>
                   </div>
 
                   {/* Date */}
@@ -109,7 +120,7 @@ const AdminOrders = () => {
                       {new Date(order.createdAt).toLocaleDateString("en-IN", {
                         day: "numeric",
                         month: "short",
-                        year: "numeric"
+                        year: "numeric",
                       })}
                     </p>
                   </div>
@@ -121,7 +132,6 @@ const AdminOrders = () => {
                       ₹{order.totalPrice?.toLocaleString("en-IN")}
                     </p>
                   </div>
-
                 </div>
 
                 {/* Order Items */}
@@ -129,12 +139,16 @@ const AdminOrders = () => {
                   {order.orderItems.map((item, i) => {
                     const product = item.product || {};
                     return (
-                      <div key={i} className="flex items-center gap-3 sm:gap-4 px-4 sm:px-6 py-4">
-
+                      <div
+                        key={i}
+                        className="flex items-center gap-3 sm:gap-4 px-4 sm:px-6 py-4"
+                      >
                         {/* Image */}
                         <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden bg-gray-100 border border-gray-100 shrink-0">
                           <img
-                            src={product.image || "https://via.placeholder.com/80"}
+                            src={
+                              product.image || "https://via.placeholder.com/80"
+                            }
                             alt={product.name}
                             className="w-full h-full object-cover"
                           />
@@ -162,9 +176,11 @@ const AdminOrders = () => {
 
                         {/* Price */}
                         <p className="font-black text-gray-950 text-xs sm:text-sm shrink-0">
-                          ₹{((product.price || 0) * item.quantity).toLocaleString("en-IN")}
+                          ₹
+                          {(
+                            (product.price || 0) * item.quantity
+                          ).toLocaleString("en-IN")}
                         </p>
-
                       </div>
                     );
                   })}
@@ -173,18 +189,22 @@ const AdminOrders = () => {
                 {/* Shipping Address */}
                 {order.shippingAddress && (
                   <div className="px-4 sm:px-6 py-3 bg-gray-50/50 border-t border-gray-100">
-                    <p className="text-xs text-gray-400 font-medium mb-1">Shipping Address</p>
+                    <p className="text-xs text-gray-400 font-medium mb-1">
+                      Shipping Address
+                    </p>
                     <p className="text-xs text-gray-600 font-medium break-words">
-                      {order.shippingAddress.name} · {order.shippingAddress.address}, {order.shippingAddress.city} - {order.shippingAddress.pincode} · {order.shippingAddress.phone}
+                      {order.shippingAddress.name} ·{" "}
+                      {order.shippingAddress.address},{" "}
+                      {order.shippingAddress.city} -{" "}
+                      {order.shippingAddress.pincode} ·{" "}
+                      {order.shippingAddress.phone}
                     </p>
                   </div>
                 )}
-
               </div>
             ))}
           </div>
         )}
-
       </div>
     </div>
   );

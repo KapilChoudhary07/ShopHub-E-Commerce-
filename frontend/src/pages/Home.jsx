@@ -1,8 +1,8 @@
-
 import MainLayout from "../layout/MainLayout";
 import { useEffect, useState } from "react";
 import { getProducts } from "../services/productService";
 import ProductGrid from "../components/ProductGrid";
+import Loader from "../components/Loader";
 
 const CATEGORIES = ["Men", "Women", "Electronics", "Kids", "Beauty"];
 
@@ -10,10 +10,18 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [category, setCategory] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const fetchProducts = async () => {
-    const res = await getProducts(keyword, category);
-    setProducts(res.data);
+    setLoading(true);
+    try {
+      const res = await getProducts(keyword, category);
+      setProducts(res.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -24,19 +32,22 @@ const Home = () => {
 
   return (
     <MainLayout>
-
       {/* ─── SEARCH + FILTER BAR ─── */}
       <div className="w-full bg-white border-b border-gray-100 sticky top-0 z-20 shadow-sm">
         <div className="max-w-6xl mx-auto px-3 sm:px-6 py-3 sm:py-4 flex flex-col gap-3">
-
           {/* Row 1 — Search input */}
           <div className="relative w-full">
             {/* Search icon */}
             <svg
               className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
-              width="16" height="16" viewBox="0 0 24 24"
-              fill="none" stroke="currentColor" strokeWidth="2"
-              strokeLinecap="round" strokeLinejoin="round"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -56,9 +67,16 @@ const Home = () => {
                 onClick={() => setKeyword("")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300 text-gray-500 hover:text-gray-700 transition-all duration-150"
               >
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" strokeWidth="3"
-                  strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="10"
+                  height="10"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <line x1="18" y1="6" x2="6" y2="18" />
                   <line x1="6" y1="6" x2="18" y2="18" />
                 </svg>
@@ -68,7 +86,6 @@ const Home = () => {
 
           {/* Row 2 — Category pills + active filter badge */}
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-0.5">
-
             {/* "All" pill */}
             <button
               onClick={() => setCategory("")}
@@ -100,12 +117,22 @@ const Home = () => {
               <>
                 <div className="shrink-0 w-px h-5 bg-gray-200 mx-1" />
                 <button
-                  onClick={() => { setKeyword(""); setCategory(""); }}
+                  onClick={() => {
+                    setKeyword("");
+                    setCategory("");
+                  }}
                   className="shrink-0 flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold text-red-500 border border-red-200 bg-red-50 hover:bg-red-100 transition-all duration-150 active:scale-95"
                 >
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" strokeWidth="3"
-                    strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="10"
+                    height="10"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <line x1="18" y1="6" x2="6" y2="18" />
                     <line x1="6" y1="6" x2="18" y2="18" />
                   </svg>
@@ -114,7 +141,6 @@ const Home = () => {
               </>
             )}
           </div>
-
         </div>
       </div>
 
@@ -124,13 +150,25 @@ const Home = () => {
           {hasFilters ? (
             <p className="text-sm font-semibold text-gray-700">
               {products.length} result{products.length !== 1 ? "s" : ""}
-              {keyword && <span> for <span className="text-gray-950">"{keyword}"</span></span>}
-              {category && <span className="text-gray-400"> in <span className="text-gray-950">{category}</span></span>}
+              {keyword && (
+                <span>
+                  {" "}
+                  for <span className="text-gray-950">"{keyword}"</span>
+                </span>
+              )}
+              {category && (
+                <span className="text-gray-400">
+                  {" "}
+                  in <span className="text-gray-950">{category}</span>
+                </span>
+              )}
             </p>
           ) : (
             <p className="text-sm font-semibold text-gray-700">
               All Products
-              <span className="text-gray-400 font-normal ml-1.5">({products.length})</span>
+              <span className="text-gray-400 font-normal ml-1.5">
+                ({products.length})
+              </span>
             </p>
           )}
         </div>
@@ -138,9 +176,12 @@ const Home = () => {
 
       {/* ─── PRODUCTS ─── */}
       <div className="max-w-6xl mx-auto px-3 sm:px-6 pb-6 sm:pb-8">
-        <ProductGrid products={products} />
+        {loading ? (
+          <Loader message="Fetching products..." />
+        ) : (
+          <ProductGrid products={products} />
+        )}
       </div>
-
     </MainLayout>
   );
 };
